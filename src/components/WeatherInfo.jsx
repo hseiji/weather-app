@@ -16,7 +16,7 @@ import { axiosInstance } from '../config';
 
 
 
-export default function WeatherInfo({direction, celsius}) {
+export default function WeatherInfo({direction, celsius, kmh}) {
 
     const [weather, setWeather] = useState([]);
 
@@ -34,6 +34,7 @@ export default function WeatherInfo({direction, celsius}) {
                 const wind_km = data.current.wind_kph;
                 const wind_mph = data.current.wind_mph;
                 const cloud = data.current.cloud;
+                const last_updated = data.current.last_updated;
 
                 setWeather({
                     temp_c,
@@ -42,7 +43,8 @@ export default function WeatherInfo({direction, celsius}) {
                     feels_f,
                     wind_km,
                     wind_mph,
-                    cloud
+                    cloud,
+                    last_updated
                 })
 
                 console.log(data);
@@ -85,13 +87,18 @@ export default function WeatherInfo({direction, celsius}) {
 
                 <Grid item container spacing={2}>
                     <Grid item><AirIcon sx={{ fontSize: 40 }}/></Grid>
-                    <Grid item><Typography variant='h5'>{weather.wind_km} Km/h</Typography></Grid>
+                    {kmh?
+                        (<Grid item><Typography variant='h5'>{weather.wind_km} Km/h</Typography></Grid>):
+                        (<Grid item><Typography variant='h5'>{weather.wind_mph} Mph</Typography></Grid>)    
+                    }
                 </Grid>
 
                 <Grid item container spacing={2}>
                     <Grid item><CloudIcon sx={{ fontSize: 40 }}/></Grid>
                     <Grid item><Typography variant='h5'>{weather.cloud} % of clouds</Typography></Grid>
                 </Grid>
+
+                <Grid item sx={{fontSize: 25}}>Last updated: {weather.last_updated}</Grid>
 
             </Grid>
         </div>

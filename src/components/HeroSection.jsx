@@ -29,6 +29,7 @@ export default function HeroSection() {
 
     const styles = useStyles();
     const [celsius, setCelsius] = useState(true);
+    const [kmh, setKmh] = useState(true);
 
     return (
         <Paper className={styles.section}>
@@ -41,7 +42,7 @@ export default function HeroSection() {
                         </Typography>
                         <Grid item alignItems="center" container>
                             <Box my={3} spacing={2}>
-                                <Button variant='outlined' justifyContent="center">Km/h | Mph</Button>
+                                <Button variant='outlined' justifyContent="center" onClick={() => {setKmh(!kmh)}}>Km/h | Mph</Button>
                             </Box>
                             <Box my={3} spacing={2}>
                                 <Button variant='outlined' justifyContent="center" onClick={() => {setCelsius(!celsius)}}>°C | °F</Button>
@@ -49,7 +50,7 @@ export default function HeroSection() {
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <WeatherInfo direction="column" celsius={celsius}/>
+                        <WeatherInfo direction="column" celsius={celsius} kmh={kmh}/>
                     </Grid>
                 </Grid>
             </Container>
